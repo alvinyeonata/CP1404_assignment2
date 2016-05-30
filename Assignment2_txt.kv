@@ -4,64 +4,56 @@ BoxLayout:
         orientation: 'horizontal'
         BoxLayout:
             orientation: 'vertical'
+            size_hint_x: 1,1
             Button:
                 text: 'List items'
+                width: 100
 
 
             Button:
                 text: 'Hire items'
-                on_press: app.addItem()
-
+                width: 100
+                on_press: app.pressed(self)
 
             Button:
                 text: 'Return items'
-
+                width: 100
 
             Button:
                 text: 'Confirm'
-
+                width: 100
 
             Button:
                 text: 'Add New Item'
-
+                width: 100
 
         BoxLayout:
             orientation: 'vertical'
+
             BoxLayout:
                 orientation: 'horizontal'
                 BoxLayout:
                     orientation: 'vertical'
                     Button:
                         text: 'Rusty Bucket'
-                        size_hint: 1, 1
-                        width: 100
 
                     Button:
                         text: 'Thermomix'
-                        size_hint: 1, 1
-                        width: 100
 
                     Button:
                         text: 'Guitar'
-                        size_hint: 1, 1
-                        width: 100
 
                 BoxLayout:
                     orientation: 'vertical'
                     Button:
                         text: 'Golf Cart'
-                        size_hint: 1, 1
-                        width: 100
 
                     Button:
                         text: 'Aeropass'
-                        size_hint: 1, 1
-                        width: 100
 
                     Label:
                         text: ''
-                        size_hint: 1, 1
-                        width: 100
+
 
     Label:
         text: 'Choose action from the left menu, then select items on the right'
