@@ -9,11 +9,9 @@ BoxLayout:
                 text: 'List items'
                 width: 100
 
-
             Button:
                 text: 'Hire items'
                 width: 100
-                on_press: app.pressed(self)
 
             Button:
                 text: 'Return items'
@@ -29,7 +27,8 @@ BoxLayout:
 
         BoxLayout:
             orientation: 'vertical'
-
+            size_hint_x: 1
+            size_hint_y: 1
             BoxLayout:
                 orientation: 'horizontal'
                 BoxLayout:
