@@ -2,9 +2,6 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.properties import StringProperty
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.popup import Popup
-from kivy.uix.label import Label
 
 """
 Alvin Yeonata
@@ -93,6 +90,7 @@ class Assignment2(App):
         self.root.ids.itemName.text = ""
         self.root.ids.description.text = ""
         self.root.ids.price_per_day.text = ""
+
     def press_save(self, added_name, added_number):
         self.Assignment2[added_name] = added_number
         self.root.ids.entriesBox.cols = len(self.Assignment2) // 5 + 1
