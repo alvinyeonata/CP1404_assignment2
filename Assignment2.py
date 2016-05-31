@@ -7,7 +7,7 @@ from AlvinYeonataA1_v2 import loading_items
 
 """
 Alvin Yeonata
-Date: 31/5/2016
+Date: 31/5/2016 11:32
 This is a code about an application in which is the items in taken froma csv file.
 This codes will allow changes in the csv file allowing a change in availability status and adding items.
 https://github.com/alvinyeonata/CP1404_assignment2
