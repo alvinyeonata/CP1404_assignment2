@@ -3,7 +3,7 @@ from kivy.lang import Builder
 from kivy.uix.button import Button
 from itemlist import ItemList
 from item import Item
-
+from AlvinYeonataA1_v2 import loading_items
 
 """
 Alvin Yeonata
