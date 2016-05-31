@@ -1,0 +1,96 @@
+BoxLayout:
+    id:mainBox
+    Popup:
+        id: popup
+        size_hint: (1, 1)
+        title: "Add item"
+        on_parent:
+            if self.parent == mainBox: self.parent.remove_widget(self)
+
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text:'Item Name:'
+
+            TextInput:
+                id: itemName
+
+            Label:
+                text: 'Description:'
+
+            TextInput:
+                id: description
+
+            Label:
+                text: 'Price Per Day'
+
+            TextInput:
+                id: price_per_day
+
+            Button:
+                id: saveitem
+                text: 'Save Item'
+                on_release: app.save(name.text, description.text,price_per_day.text,availibility.text)
+
+            Button:
+                id: cancelitem
+                text: 'Cancel'
+                on_press: app.cancel()
+
+            Label:
+                id: label_popup
+                text: 'Enter details for new item'
+
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 1
+
+            BoxLayout:#left
+                orientation: 'vertical'
+                size_hint_x: 0.3
+
+                Button:
+                    id: item_list
+                    text: 'List Items'
+                    on_press:app.itemlist()
+                    width: 100
+
+
+                Button:
+                    id: hire_item
+                    text: 'Hire Items'
+                    on_press:app.itemhire()
+                    width: 100
+
+
+                Button:
+                    id: return_item
+                    text: 'Return Items'
+                    on_press:app.itemreturn()
+                    width: 100
+
+
+                Button:
+                    id: confirm
+                    text: 'Confirm'
+                    width: 100
+                    on_press: app.confirm()
+
+                Button:
+                    id: add_item
+                    text: 'Add New Item'
+                    on_press: app.additem()
+
+            GridLayout:
+                id: itemsBox
+                cols: 2
+                orientation: 'vertical'
+
+        Label:
+            id: label
+            size_hint_y: 0.1
+            text: 'Choose action from the left menu, then select items on the right'
