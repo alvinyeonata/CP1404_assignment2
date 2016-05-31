@@ -1,7 +1,8 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
-from itemlist import *
+from itemlist import ItemList
+from item import Item
 
 
 """
