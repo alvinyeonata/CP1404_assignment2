@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
-from Item import *
+from items import Item
 from itemlist import ItemList
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.togglebutton import ToggleButtonBehavior
@@ -29,7 +29,11 @@ class Assignment2(App):
     def itemlist(self):
         self.root.ids.itemsBox.clear_widgets()
         self.root.ids.label.text = 'Choose action from the left menu, then select items on the right'
-        self.root.ids.item_list.background_color = (1, 1, 0.5, 1)
+        self.root.ids.item_list.background_color = (0, 0.5, 0.5, 1)
+        self.root.ids.hire_item.background_color = (1, 1, 1, 1)
+        self.root.ids.return_item.background_color = (1, 1, 1, 1)
+        self.root.ids.confirm.background_color = (1, 1, 1, 1)
+        self.root.ids.add_item.background_color = (1, 1, 1, 1)
         item_count = 0
         for line in self.item_list:
             name, item_desc, cost, status = line.split(",")
@@ -43,7 +47,11 @@ class Assignment2(App):
 
     def itemhire(self):
         self.root.ids.itemsBox.clear_widgets()
-        self.root.ids.hire_item.background_color = (1, 1, 0.5, 1)
+        self.root.ids.item_list.background_color = (1, 1, 1, 1)
+        self.root.ids.hire_item.background_color = (0, 0.5, 0.5, 1)
+        self.root.ids.return_item.background_color = (1, 1, 1, 1)
+        self.root.ids.confirm.background_color = (1, 1, 1, 1)
+        self.root.ids.add_item.background_color = (1, 1, 1, 1)
         for line in self.item_list:
             name, item_desc, cost, status = line.split(",")
             if "in" in status:
@@ -58,7 +66,13 @@ class Assignment2(App):
 
         self.root.ids.itemsBox.clear_widgets()
         self.root.ids.label.text = 'Choose action from the left menu, then select items on the right'
-        self.root.ids.return_item.background_color = (1, 1, 0.5, 1)
+        self.root.ids.itemsBox.clear_widgets()
+        self.root.ids.label.text = 'Choose action from the left menu, then select items on the right'
+        self.root.ids.item_list.background_color = (1, 1, 1, 1)
+        self.root.ids.hire_item.background_color = (1, 1, 1, 1)
+        self.root.ids.return_item.background_color = (0, 0.5, 0.5, 1)
+        self.root.ids.confirm.background_color = (1, 1, 1, 1)
+        self.root.ids.add_item.background_color = (1, 1, 1, 1)
         for line in self.item_list:
             name, item_desc, cost, status = line.split(",")
             if "in" in status:
@@ -72,22 +86,58 @@ class Assignment2(App):
         for line in self.item_list:
             name, item_desc, cost, status = line.split(",")
             if instance.text == name:
-                if self.root.ids.item_list.background_color == [0, 0.5, 0.5, 1]:  # when item_list is being selected
+                if self.root.ids.item_list.background_color == [0, 0.5, 0.5, 1]:
                     self.root.ids.label.text = "{} ({}), ${:,.2f} is {}".format(name, item_desc, float(cost), status)
-                elif self.root.ids.hire_item.background_color == [0, 0.5, 0.5, 1]:  # when hire_item is being selected
+                elif self.root.ids.hire_item.background_color == [0, 0.5, 0.5, 1]:
                     if "in" in status:
                         self.root.ids.label.text = "Hiring: {} for ${:,.2f}".format(name, float(cost))
                     else:
                         self.root.ids.label.text = "Hiring: no items for $0.00"
-                elif self.root.ids.return_item.background_color == [0, 0.5, 0.5, 1]:  # when return_item is being selected
+                elif self.root.ids.return_item.background_color == [0, 0.5, 0.5, 1]:
                     if "out" in status:
                         self.root.ids.label.text = "Returning: {}".format(name)
                     else:
                         self.root.ids.label.text = "Returning: no items"
 
+
+
+
+
+    def confirm(self):
+
+        item_count = 0
+        with open("items.csv") as file:
+            read_items = file.readlines()
+        for line in read_items:
+            name, item_desc, cost, status = line.split(",")
+            if name in self.root.ids.label.text:
+                if self.root.ids.hire_item.background_color == [0, 0.5, 0.5, 1]:
+                    self.item_list.clear()
+                    read_items[item_count] = read_items[item_count].replace("in", "out")
+                    with open("items.csv", "w") as file:
+                        file.writelines(read_items)
+                    for line in read_items:
+                        self.item_list.store(line)
+                    file.close()
+                    self.itemlist()
+                elif self.root.ids.return_item.background_color == [0, 0.5, 0.5, 1]:
+                    self.item_list.clear()
+                    read_items[item_count] = read_items[item_count].replace("out", "in")
+                    with open("items.csv", "w") as file:
+                        file.writelines(read_items)  # commit changes to the csv file
+                    for line in read_items:
+                        self.item_list.store(line)
+                    file.close()
+                    self.itemlist()
+            item_count += 1
+
     def additem(self):
 
-        self.root.ids.add_item.background_color = (1, 1, 0.5, 1)
+        self.root.ids.item_list.background_color = (1, 1, 1, 1)
+        self.root.ids.hire_item.background_color = (1, 1, 1, 1)
+        self.root.ids.return_item.background_color = (1, 1, 1, 1)
+        self.root.ids.confirm.background_color = (1, 1, 1, 1)
+        self.root.ids.add_item.background_color = (0, 0.5, 0.5, 1)
         self.root.ids.popup.open()
 
     def save(self, name, item_desc, cost, label):
@@ -113,49 +163,16 @@ class Assignment2(App):
             self.cancel()
             self.itemlist()
 
-    def confirm(self):
-        """
-        this function will commit changes by modifying the csv file
-        :return:
-        """
-        item_count = 0
-        with open("items.csv") as file:
-            read_items = file.readlines()
-        for line in read_items:
-            name, item_desc, cost, status = line.split(",")
-            if name in self.root.ids.label.text:
-                if self.root.ids.hire_item.background_color == [0, 0.5, 0.5, 1]:  # will only be executed if hire_item is active and an item is being selected
-                    self.item_list.clear()
-                    read_items[item_count] = read_items[item_count].replace("in", "out")  # will change the status of an item from in to out
-                    with open("items.csv", "w") as file:
-                        file.writelines(read_items)  # commit changes to the csv file
-                    for line in read_items:
-                        self.item_list.store(line)
-                    file.close()
-                    self.itemlist()
-                elif self.root.ids.return_item.background_color == [0, 0.5, 0.5, 1]:  # will only be executed if return_item is active and an item is being selected
-                    self.item_list.clear()
-                    read_items[item_count] = read_items[item_count].replace("out", "in")  # will change the status of an item from in to out
-                    with open("items.csv", "w") as file:
-                        file.writelines(read_items)  # commit changes to the csv file
-                    for line in read_items:
-                        self.item_list.store(line)
-                    file.close()
-                    self.itemlist()
-            item_count += 1  # adds each time a unit is written
 
-
-    def clear_fields(self):
+    def cancel(self):
         self.root.ids.itemName.text = ""
         self.root.ids.description.text = ""
         self.root.ids.price_per_day.text = ""
-
-
-    def cancel(self):
         self.root.ids.popup.dismiss()
-        self.clear_fields()
-        self.status_text = "Choose action from the left menu, then select items on the right"
+
+
 
     def terminate(self):
         print("{} items have been saved to items.csv".format(len(self.item_list)))
+
 Assignment2().run()
