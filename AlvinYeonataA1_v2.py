@@ -68,11 +68,11 @@ def hiring_an_item(item_list):
             print("Invalid input")
     return
 
-def main():
 
-    items=open("items.csv","r")#opening the file and reading it
-    item_list=[]
+def list(item_list):
     item_Count=0
+    item_line=0
+    items=open("items.csv","r")#opening the file and reading it
 
     for each_line in items: #getting the whole line to be categorized into fields to make it easy to change
         name, description, price_per_day, hire = each_line.strip().split(',')
@@ -80,23 +80,26 @@ def main():
         item_list.append(item)
         item_Count+=1
 
+
+
     #Counting the items in the csv file
-    item_line = 0
-    for line_str in item_list: #looping so there is a number increase for every line in the csv
-        item_line += 1
 
-    print(item_line, " Items for Hire - by Alvin Yeonata")
+
+
+def main():
+
+    item_list=[]
+    item_line=list(item_list)
+
+    print(len(item_list), " Items for Hire - by Alvin Yeonata")
     MENU = " Menu:\n (L)ist all items \n (H)ire an item \n (R)eturn an item \n (A)dd new item to stock \n (Q)uit \n >>>"
-
-    USER_INPUT =""
-
+    USER_INPUT = input(MENU)
     while USER_INPUT != "Q": #Making the loop so that only if the user press Q, it'll end the loop
-        USER_INPUT = input(MENU)
 
 
 
         if USER_INPUT =="Q" or USER_INPUT =="q": #making an exit path to end the program
-            print(item_Count, "items saved to item.csv")
+            print(len(item_list), "items saved to item.csv")
             print("Have a nice day :)")
             break
 
@@ -165,10 +168,8 @@ def main():
             items=open("items.csv", "a")
             print("{},{},{},{}".format(item_name, description, price_per_day, "in"), file=items)
             items.close()
-            item_Count += 1
             print("{} ({}), ${:,.2f} now available for hire".format(item_name, description, price_per_day))
 
         else:
             print("Invalid response")
-
-main()
+        USER_INPUT = input(MENU)
