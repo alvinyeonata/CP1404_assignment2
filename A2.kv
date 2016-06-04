@@ -30,7 +30,7 @@ BoxLayout:
             Button:
                 id: saveitem
                 text: 'Save Item'
-                on_release: app.save(name.text, description.text,price_per_day.text,availibility.text)
+                on_release: app.save(itemName.text, description.text,price_per_day.text)
 
             Button:
                 id: cancelitem
@@ -56,7 +56,7 @@ BoxLayout:
                 Button:
                     id: item_list
                     text: 'List Items'
-                    on_press:app.item
+                    on_press:app.listitem()
                     width: 100
 
 
